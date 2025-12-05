@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> ReviveTech Occitanie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a class="navbar-brand" href="#" onclick="showSection('home')">⚡ ReviveTech</a>
+            <ul class="navbar-nav">
+                <li><a href="#" onclick="showSection('home')">Accueil</a></li>
+                <li><a href="#" onclick="showSection('catalogue')">Catalogue</a></li>
+                <li><a href="#" onclick="showSection('about')">À Propos</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+                <li><a href="#" id="nav-admin" onclick="toggleAdminView()">Accès Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="section-home" class="container mt-5">
+        <div class="hero-section text-center">
+            <h1>L'Informatique Reconditionnée<br>Solidaire en Occitanie</h1>
+            <p>Ne jetez plus. Économisez. TechRevive équipe les étudiants avec du matériel pro.</p>
+            <button class="btn btn-accent" onclick="showSection('catalogue')">Voir les offres</button>
+        </div>
+
+        <div class="calculator-box mt-5">
+            <h3>🌍 Calculez votre impact</h3>
+            <div class="form-group" style="max-width: 400px; margin: 0 auto;">
+                <input type="number" id="budgetInput" class="form-control text-center" placeholder="Votre budget (ex: 150€)">
+            </div>
+            <button onclick="calculerImpact()" class="btn btn-custom mt-2">Simuler l'économie</button>
+            <p id="result-impact" class="mt-3 font-weight-bold">Entrez un montant pour voir la magie.</p>
+        </div>
+    </div>
+
+    <div id="section-catalogue" class="container mt-5 hidden">
+        <h2 class="text-center mb-4">Nos Offres Disponibles</h2>
+        
+        <div id="admin-panel" class="hidden">
+            
+            <div class="card p-4 mb-4" style="border: 1px solid var(--accent);">
+                <h3 class="text-accent">📋 Commandes reçues</h3>
+                <div id="orders-list"></div>
+            </div>
+
+            <div class="card p-4 mb-4" style="border: 1px solid #f1c40f;">
+                <h3 style="color: #f1c40f;">📩 Messages reçus</h3>
+                <div id="messages-list"></div>
+            </div>
+
+            <div class="card p-4 mb-5">
+                <h3>🔧 Ajouter une Offre</h3>
+                <form id="add-form">
+                    <div class="form-grid">
+                        <input type="text" id="title" class="form-control" placeholder="Modèle (ex: Dell Latitude)" required>
+                        <input type="text" id="specs" class="form-control" placeholder="Specs (ex: i5, 8Go, SSD)" required>
+                        <input type="number" id="price" class="form-control" placeholder="Prix (€)" required>
+                        <input type="number" id="co2" class="form-control" placeholder="CO2 économisé (kg)" required>
+                    </div>
+                    <textarea id="desc" class="form-control mt-2" placeholder="Description courte" required></textarea>
+                    <button type="submit" class="btn btn-success mt-3">Publier l'offre</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="product-list" class="grid-container"></div>
+    </div>
+
+    <div id="section-about" class="container mt-5 hidden">
+        <h2 class="text-center mb-4">À Propos de ReviveTech</h2>
+        
+        <div class="card p-4 mb-4">
+            <h3 class="text-accent">Le Site C'est Quoi ?</h3>
+            <p>ReviveTech est une plateforme locale dédiée à la lutte contre la fracture numérique et le gaspillage électronique. Nous récupérons les flottes informatiques des grandes entreprises d'Occitanie pour les reconditionner.</p>
+        </div>
+
+        <div class="grid-container mb-4">
+            <div class="card">
+                <h3 class="text-accent">Ce que nous proposons</h3>
+                <p>Des ordinateurs portables de gamme professionnelle reconditionnés à neuf, vendus à prix coûtant pour les étudiants et associations.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-accent">Pour Qui ?</h3>
+                <p>Prioritairement pour les étudiants boursiers, les jeunes actifs en précarité et les associations locales ayant besoin de s'équiper sans se ruiner.</p>
+            </div>
+            <div class="card">
+                <h3 class="text-accent">Notre Promesse</h3>
+                <p>Zero déchet, 100% Solidaire. Chaque ordinateur acheté chez nous évite 200kg d'extraction de matières premières et soutient l'emploi local.</p>
+            </div>
+        </div>
+
+        <div class="card p-4 mb-4">
+            <h3 class="text-accent text-center mb-4">Notre Équipe</h3>
+            <div class="grid-container text-center">
+                <div>
+                    <h4>Abdesselem LAHDIR</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">MIASHS</p>
+                    <p>Développeur Web et Data</p>
+                </div>
+                <div>
+                    <h4>Ridwane KRERI</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">L2 MIASHS</p>
+                    <p>Développeur Web et Data</p>
+                </div>
+                <div>
+                    <h4>Thomas BELAVAL</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">BUT2 CG2P</p>
+                    <p>Controleur de gestion</p>
+                </div>
+                <div>
+                    <h4>Timéo BOUTEIL</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">BUT2 GEMA</p>
+                    <p>Marketing</p>
+                </div>
+                <div>
+                    <h4>Loan LACOSTE</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">BUT2 GC2F</p>
+                    <p>Analyste Financier</p>
+                </div>
+                <div>
+                    <h4>Erwan VOISE</h4>
+                    <p style="color:#a4b0be; font-weight:bold;">BUT2 GC2F</p>
+                    <p>Comptabilité et Trésorerie</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4 mb-4 text-center">
+            <h3 class="text-accent">Nos Projets</h3>
+            <p>Après le lancement à Toulouse, nous visons l'ouverture d'un atelier solidaire à Montpellier en 2026 et un partenariat avec 10 lycées de la région.</p>
+        </div>
+
+        <div class="card p-4 text-center">
+            <h3 class="text-accent">Où nous trouver</h3>
+            <p>📍 2 Place Genvieve Anthonioz de Gaulle, Toulouse 31100<br>
+            📞 05 61 00 00 00<br>
+            📧 contact@techrevive-occitanie.fr</p>
+        </div>
+    </div>
+
+    <div id="section-contact" class="container mt-5 hidden">
+        <h2 class="text-center mb-4">Contactez-nous</h2>
+        <div class="card p-4" style="max-width: 600px; margin: 0 auto;">
+            <form id="contact-form">
+                <label>Nom Complet</label>
+                <input type="text" id="contact-name" class="form-control mb-2" required>
+                
+                <label>Email</label>
+                <input type="email" id="contact-email" class="form-control mb-2" required>
+                
+                <label>Message</label>
+                <textarea id="contact-msg" class="form-control mb-2" rows="5" required></textarea>
+                
+                <button type="submit" class="btn btn-accent w-100 mt-2">Envoyer le message</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="reservation-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 class="text-accent">Réserver ce produit</h3>
+            <p id="modal-product-name" style="color: #ccc; margin-bottom: 15px;"></p>
+            
+            <form id="reservation-form">
+                <input type="text" id="res-nom" class="form-control mb-2" placeholder="Nom" required>
+                <input type="text" id="res-prenom" class="form-control mb-2" placeholder="Prénom" required>
+                <input type="tel" id="res-tel" class="form-control mb-2" placeholder="Téléphone (ex: 06...)" required>
+                <button type="submit" class="btn btn-accent w-100 mt-2">Valider</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 TechRevive Occitanie - Site fait par Abdesselem LAHDIR</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
